@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="de-de">
+    <head>
+        <meta charset="UTF-8">
+        <title>BookFinder</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <main>
+        
+        <div id="leiste">
+            <div class="titelleiste">
+                <span id="rechts">
+                    <a id="logo-item">BookFinder</a>
+                </span>
+                <span>
+                    <a class="leisten-item" href="index.html">Home</a>
+                    <a class="leisten-item" href="create.html">Erstellen</a>
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+
+        <div class="foreground" id="zentriert">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+
+    <br>
+
+    <div class="grid" id="gridlayout">
+        <!--<div class="row">-->
+            <div class="griditem" id="formular">
+            <!--<div class="card">-->
+                <h2>Buch anlegen</h2>
+                <table>
+                    <tr>
+                        <td>ISBN:</td>
+                        <td><input type="text" name="isbn" placeholder="z.B. 978-X-XXX-XXXXX-X" id="isbnCreate"></td>
+                    </tr>
+                    <tr>
+                        <td>Titel:</td>
+                        <td><input type="text" name="titel" placeholder="Titel" id="titleCreate"></td>
+                    </tr>
+                    <tr>
+                        <td>Autor:</td>
+                        <td><input type="text" name="autor" placeholder="Autor" id="autorCreate"></td>
+                    </tr>
+                    <tr>
+                        <td>Reihe:</td>
+                        <td><input type="text" name="reihe" placeholder="Buchreihe" id="reiheCreate"></td>
+                    </tr>
+                    <tr>
+                        <td>Lagerort:</td>
+                        <td><select id="placeCreate">
+                            <option value="Buecherregal Fenster">B&uuml;cherregal Fenster</option>
+                            <option value="Buecherregal Bett">B&uuml;cherregal Bett</option>
+                            <option value="Schlafzimmer">Schlafzimmer</option>
+                            <option value="Schrank Mitte">Schrank Mitte</option>
+                            <option value="Schrank Rechts">Schrank Rechts</option>
+                            <option value="Unter Bett">Unter Bett</option>
+                            <option value="Dachboden">Dachboden</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Release:</td>
+                        <td><input type="number" name="release" min="1000" max="2100" step="1" placeholder="2020" id="releaseCreate"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" onclick="create()" name="erstellenButton" value="Erstellen" id="createbutton"></td>
+                    </tr>
+                </table>
+                
+                
+            </div>
+
+            <div class="griditem" id="formular">
+                <h2>Buch bearbeiten</h2>
+                <table>
+                    <tr>
+                        <td>ISBN:</td>
+                        <td><input type="text" name="isbn" placeholder="z.B. 978-X-XXX-XXXXX-X" id="isbnChange"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select id="changeCategory">
+                                <option value="isbn">ISBN</option>
+                                <option value="title">Titel</option>
+                                <option value="autor">Autor</option>
+                                <option value="reihe">Reihe</option>
+                                <option value="place">Lagerort</option>
+                                <option value="release">Release</option>
+                            </select>
+                        </td>
+                        <td><input type="text" name="change" placeholder="Neuer Eintrag" id="change"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" onclick="change()" name="bearbeitenButton" value="Ändern" id="changebutton"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="griditem" id="formular">
+                <h2>Buch l&ouml;schen</h2>
+                <table>
+                    <tr>
+                        <td>ISBN:</td>
+                        <td><input type="text" name="isbn" placeholder="z.B. 978-X-XXX-XXXXX-X" id="isbnDel"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" onclick="del()" name="deleteButton" value="L&ouml;schen" id="deletebutton"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        </main>
+        
+<!------------------------------------------------------------------------------------------------------------------------------------->
+
+        <script>
+            // Erstellen
+            function create(){
+                var isbn = document.querySelector("#isbnCreate").value;
+                if(isbn.toString() === ""){
+                    isbn = " ";
+                }
+
+                var title = document.querySelector("#titleCreate").value;
+                if(title.toString() === ""){
+                    title = " ";
+                }
+
+                var autor = document.querySelector("#autorCreate").value;
+                if(autor.toString() === ""){
+                    autor = " ";
+                }
+
+                var reihe = document.querySelector("#reiheCreate").value;
+                if(reihe.toString() === ""){
+                    reihe = " ";
+                }
+
+                var place = document.getElementById("placeCreate").value;
+                if(place.toString() === ""){
+                    place = " ";
+                }
+
+                var release = document.querySelector("#releaseCreate").value;
+                if(release.toString() === ""){
+                    release = " ";
+                }
+
+                var request = new XMLHttpRequest();
+                var url = "http://192.168.178.40:8080/books/" + isbn.toString() + "/" + title.toString() + "/" + autor.toString() + "/" + reihe.toString() + "/" + place.toString() + "/" + release.toString() + "/";
+
+                request.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        window.alert("Eintrag erfolgreich erstellt");
+                        document.querySelector("#isbnCreate").value = "";
+                        document.querySelector("#titleCreate").value = "";
+                        document.querySelector("#autorCreate").value = "";
+                        document.querySelector("#reiheCreate").value = "";
+                        document.querySelector("#placeCreate").value = "";
+                        document.querySelector("#releaseCreate").value = "";
+                    }
+                };
+
+                request.open("POST", url, true);
+                request.send();
+            }
+
+            // Bearbeiten
+            function change(){
+                var isbn = document.querySelector("#isbnChange").value;
+                var category = document.getElementById("changeCategory").value;
+                var change = document.querySelector("#change").value;
+                var request = new XMLHttpRequest();
+                var url;
+
+                if(isbn.toString() === ""){
+                    isbn = " ";
+                }
+
+                if(change.toString() === ""){
+                    change = " ";
+                }
+
+                if(category.toString() === "isbn"){
+                    url = "http://192.168.178.40:8080/books/" + isbn.toString() + "/isbn/" + change.toString() + "/";
+                } else if(category.toString() === "title"){
+                    url = "http://192.168.178.40:8080/books/" + isbn.toString() + "/title/" + change.toString() + "/";
+                } else if(category.toString() === "autor"){
+                    url = "http://192.168.178.40:8080/books/" + isbn.toString() + "/autor/" + change.toString() + "/";
+                } else if(category.toString() === "reihe"){
+                    url = "http://192.168.178.40:8080/books/" + isbn.toString() + "/reihe/" + change.toString() + "/";
+                } else if(category.toString() === "place"){
+                    url = "http://192.168.178.40:8080/books/" + isbn.toString() + "/place/" + change.toString() + "/";
+                } else if(category.toString() === "release"){
+                    url = "http://192.168.178.40:8080/books/" + isbn.toString() + "/release/" + change.toString() + "/";
+                }
+
+                request.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        window.alert(unescape("Eintrag erfolgreich ge%E4ndert"));
+                        document.querySelector("#isbnChange").value = "";
+                        document.querySelector("#change").value = "";
+                    }
+                };
+
+                request.open("PUT", url, true);
+                request.send();
+            }
+
+            // Entfernen
+            function del(){
+                var isbn = document.querySelector("#isbnDel").value;
+                var request = new XMLHttpRequest();
+                var url = "http://192.168.178.40:8080/books/" + isbn.toString() + "/";
+
+                request.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        window.alert(unescape("Eintrag erfolgreich gel%F6scht"));
+                        document.querySelector("#isbnDel").value = "";
+                    }
+                };
+
+                request.open("DELETE", url, true);
+                request.send();
+            }
+
+        </script>
+    </body>
+</html>

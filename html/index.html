@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="de-de">
+    <head>
+        <meta charset="UTF-8">
+        <title>BookFinder</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <main>
+
+            <div id="leiste">
+                <div class="titelleiste">
+                    <span id="rechts">
+                        <a id="logo-item">BookFinder</a>
+                    </span>
+                    <span>
+                        <a class="leisten-item" href="index.html">Home</a>
+                        <a class="leisten-item" href="create.html">Erstellen</a>
+                    </span>
+                    <span>
+
+                    </span>
+                </div>
+            </div>
+            
+            <div class="foreground" id="zentriert">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <input type="text" name="suche" placeholder="Search" id="suchleiste" onsearch="search()">
+                <input type="submit" onclick="search()" name="suchButton" value="Suchen" id="suchbutton">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+
+            <br>
+
+            <div class="grid" id="gridlayout">
+                
+            </div>
+
+            <div>
+                <br>
+                <br>
+            </div>
+        
+        </main>
+
+<!------------------------------------------------------------------------------------------------------------------------------------->
+
+        <script>
+            /*
+            Mit JSON.parse wird der response zu einem JSON-Objekt. Erst durch
+            JSON.stringify wird es für den Menschen lesbar. Bevor das JSON-Objekt
+            zum String wird, muss man sich also entsprechend fortbewegen.
+            */
+            
+            function outputTable(arr){
+                var len = arr['bookList'].length;
+                var output = "";
+                var i;
+
+                for(i=0; i<len; i++){
+                    var book = '<div class="griditem" id="bookBox"><h2>' + JSON.stringify(arr['bookList'][i]['title']).replace(/["']/g, "") + '</h2><h3>' +
+                        JSON.stringify(arr['bookList'][i]['reihe']).replace(/["']/g, "") + '</h3><table><tr><td>ISBN:</td><td>&shy;' + 
+                        JSON.stringify(arr['bookList'][i]['isbn']).replace(/["']/g, "") + '</td></tr><tr><td>Autor:</td><td>' +
+                        JSON.stringify(arr['bookList'][i]['autor']).replace(/["']/g, "") + '</td></tr><tr><td>Release:</td><td>' +
+                        JSON.stringify(arr['bookList'][i]['release']).replace(/["']/g, "") + '</td></tr><tr><td>Lagerort:</td><td>' +
+                        JSON.stringify(arr['bookList'][i]['place']).replace(/["']/g, "") + '</td></tr></table></div>';
+                    output = output + book;
+                }
+                
+                document.getElementById("gridlayout").innerHTML = output;
+            }
+
+            function search(){
+                var searchText = document.querySelector("#suchleiste").value;
+                var request = new XMLHttpRequest();
+                
+                if(searchText.toString() === ""){
+                    var url = "http://192.168.178.40:8080/books/";
+                } else {
+                    var url = "http://192.168.178.40:8080/books/" + searchText.toString().toLowerCase() + "/";
+                }
+
+                request.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var myArr = JSON.parse(this.responseText);
+                        outputTable(myArr);
+                    }
+                };
+                request.open("GET", url, true);
+                request.send();
+            }
+
+        </script>
+    </body>
+</html>
