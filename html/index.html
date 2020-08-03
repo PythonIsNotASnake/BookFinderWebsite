@@ -88,9 +88,9 @@
                 var request = new XMLHttpRequest();
                 
                 if(searchText.toString() === ""){
-                    var url = "http://192.168.178.40:8080/books/";
+                    var url = "http://localhost:8080/books/";
                 } else {
-                    var url = "http://192.168.178.40:8080/books/" + searchText.toString().toLowerCase() + "/";
+                    var url = "http://localhost:8080/books/" + searchText.toString().toLowerCase() + "/";
                 }
 
                 request.onreadystatechange = function() {
