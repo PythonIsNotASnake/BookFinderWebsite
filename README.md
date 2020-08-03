@@ -1,7 +1,15 @@
 # BookFinderWebsite
 ![alt-text](ScreenshotPC01.jpg =300x "ScreenshotPC01")
 
-<img src="ScreenshotPC01.jpg" alt="drawing" width="200"/>
+<img src="ScreenshotPC01.jpg" alt="drawing" width="1000"/>
+
+<img src="ScreenshotPC02.jpg" alt="drawing" width="1000"/>
+
+<img src="Screenshot_mobile01.jpg" alt="drawing" width="1000"/>
+
+<img src="Screenshot_mobile02.jpg" alt="drawing" width="1000"/>
+
+<img src="Screenshot_mobile03.jpg" alt="drawing" width="1000"/>
 
 ![alt-text](ScreenshotPC02.jpg =300x "ScreenshotPC02")
 
