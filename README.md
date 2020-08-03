@@ -1,6 +1,8 @@
 # BookFinderWebsite
 ![alt-text](ScreenshotPC01.jpg =300x "ScreenshotPC01")
 
+<img src="ScreenshotPC01.jpg" alt="drawing" width="200"/>
+
 ![alt-text](ScreenshotPC02.jpg =300x "ScreenshotPC02")
 
 ![alt-text](Screenshot_mobile01.jpg =300x "ScreenshotMobile01")
